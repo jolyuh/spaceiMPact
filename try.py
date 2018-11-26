@@ -7,13 +7,15 @@ window = pyglet.window.Window(width=500,height=500)
 
 #load assets
 
-img_player = pyglet.image.load('assets/temporary/doge1_50px.png')
+img_player = pyglet.image.load('assets/temporary/doge1_medium.png')
+img_player_sprite = pyglet.sprite.Sprite(img_player)
+img_player_sprite.scale = 0.42
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy  = pyglet.image.load('assets/temporary/chocolate_28px.png')
 
 #create new player
 def new_player():
-	a = { "sprite" : pyglet.sprite.Sprite(img_player) }
+	a = { "sprite" : img_player_sprite }
 	a["sprite"].position = (10,0)
 	#define update function
 	def update(dt):
