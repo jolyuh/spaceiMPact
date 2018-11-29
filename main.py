@@ -8,13 +8,13 @@ import enemy 		as Enemy
 import projectile   as Projectile
 
 
-window = pyglet.window.Window(width=720,height=500)
+window = pyglet.window.Window(width=720, height=500)
 
 img_player = pyglet.image.load('assets/temporary/doge1_50px.png')
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy  = pyglet.image.load('assets/temporary/chocolate_28px.png')
 
-#Set sprites
+# Set sprites
 # Player.setImg([ frame1 , frame2 ])
 Enemy.setImg( [img_enemy,img_enemy,img_enemy])
 # Projectile.setImg( img_bullet)
@@ -23,8 +23,9 @@ Enemy.setImg( [img_enemy,img_enemy,img_enemy])
 # player = Player.add()
 
 mouse_position = [0,0]
-step = 0					#30 steps == 1s
+step = 0					# 30 steps == 1s
 score = 0
+
 
 def controller():
 	global step
@@ -36,7 +37,6 @@ def controller():
 			Enemy.add(random.randint(1,1))		#Normal curve or not
 		elif step ==   5*(30) :
 			Enemy.add(2)						#Boss
-
 
 
 def update(dt):
@@ -56,10 +56,12 @@ def update(dt):
 def on_mouse_press(x, y, button, modifiers):
 	...
 
+
 @window.event
 def on_mouse_motion(x, y, dx, dy):
-    mouse_position[0] = x
-    mouse_position[1] = y
+	mouse_position[0] = x
+	mouse_position[1] = y
+
 
 @window.event
 def on_draw():
@@ -71,5 +73,5 @@ def on_draw():
 	# Projectile.draw()
 
 
-pyglet.clock.schedule_interval(update, 1/30) 			#update every 1/60 s , i.e. run @ 60 fps
+pyglet.clock.schedule_interval(update, 1/30) 			# update every 1/60 s , i.e. run @ 60 fps
 pyglet.app.run()
