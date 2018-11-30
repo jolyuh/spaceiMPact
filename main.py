@@ -10,23 +10,22 @@ import projectile as Projectile
 
 window = pyglet.window.Window(width=720, height=500)
 
-img_player = pyglet.image.load('assets/temporary/doge.gif')
+img_player = pyglet.image.load('assets/temporary/doge1_50px.png')
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy = pyglet.image.load('assets/temporary/chocolate_28px.png')
 
 # Set sprites
-# Player.setImg([ frame1 , frame2 ])
+Player.setImg(img_player)
 Enemy.setImg([img_enemy, img_enemy, img_enemy])
 # Projectile.set_img(img_bullet)
 
 
-# player = Player.add()
 
 mouse_position = [0, 0]
 step = 0					# 30 steps == 1s
 score = 0
 
-
+player = Player.add(mouse_position)
 def controller():
     global step
     if step % 8 == 0:
@@ -44,19 +43,19 @@ def update(dt):
 
     controller()
 
-    # Player.update(dt)
+    Player.update(dt)
     Enemy.update(dt)
-    Projectile.update(dt)
+    #Projectile.update(dt)
 
     score += 1
     step += 1
 
-
+'''
 @window.event
 def on_mouse_press(x, y, button, modifiers):
     if button == mouse.LEFT:
         Projectile.new_projectile()
-
+'''
 
 @window.event
 def on_mouse_motion(x, y, dx, dy):
@@ -69,9 +68,9 @@ def on_draw():
 
     window.clear()
 
-    # Player.draw()
+    Player.draw()
     Enemy.draw()
-    Projectile.draw()
+    #Projectile.draw()
 
 
 pyglet.clock.schedule_interval(update, 1/60) 			# update every 1/60 s , i.e. run @ 60 fps
