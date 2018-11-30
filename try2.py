@@ -10,7 +10,7 @@ window = pyglet.window.Window(width=500,height=500)
 
 #load assets
 
-img_player = pyglet.image.load('assets/temporary/doge1_50px.png')
+img_player = pyglet.image.load('assets/temporary/doge.gif')
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy  = pyglet.image.load('assets/temporary/chocolate_28px.png')
 

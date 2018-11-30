@@ -3,31 +3,36 @@ import random
 from pyglet.window import key
 from pyglet.window import mouse
 
-window = pyglet.window.Window(width=500,height=500)
+window = pyglet.window.Window(width=500, height=500)
 
-#load assets
+# load assets
 
-img_player = pyglet.image.load('assets/temporary/doge1_medium.png')
+img_player = pyglet.image.load_animation('assets/temporary/doge.gif')
+doge_bin = pyglet.image.atlas.TextureBin()
+img_player.add_to_texture_bin(doge_bin)
 img_player_sprite = pyglet.sprite.Sprite(img_player)
 img_player_sprite.scale = 0.42
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
-img_enemy  = pyglet.image.load('assets/temporary/chocolate_28px.png')
+img_enemy = pyglet.image.load('assets/temporary/chocolate_28px.png')
 
-#create new player
+# create new player
+
+
 def new_player():
-	a = { "sprite" : img_player_sprite }
+	a = {"sprite": img_player_sprite }
 	a["sprite"].position = (10,0)
-	#define update function
+	# define update function
+
 	def update(dt):
 		spr = a["sprite"]
-		#follow mouse
+		# follow mouse
 		spr.position = ( 10 , mouse_position[1] )
 	#save the function indside the dictinory
 	a["update"] = update
 	return a
 
 
-#create enemy
+# create enemy
 def new_enemey():
 	# define 
 	a = { 
