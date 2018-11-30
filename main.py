@@ -17,7 +17,7 @@ img_enemy  = pyglet.image.load('assets/temporary/chocolate_28px.png')
 # Set sprites
 # Player.setImg([ frame1 , frame2 ])
 Enemy.setImg([img_enemy, img_enemy, img_enemy])
-# Projectile.setImg( img_bullet)
+# Projectile.set_img(img_bullet)
 
 
 # player = Player.add()
@@ -54,7 +54,8 @@ def update(dt):
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
-	...
+	if button == mouse.LEFT:
+		Projectile.new_projectile()
 
 
 @window.event

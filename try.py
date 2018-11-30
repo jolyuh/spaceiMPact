@@ -14,6 +14,11 @@ img_player_sprite = pyglet.sprite.Sprite(img_player)
 img_player_sprite.scale = 0.42
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy = pyglet.image.load('assets/temporary/chocolate_28px.png')
+img_background = pyglet.image.load_animation('assets/temporary/bg_loop.gif')
+bg_bin = pyglet.image.atlas.TextureBin()
+img_background.add_to_texture_bin(bg_bin)
+img_background_sprite = pyglet.sprite.Sprite(img_background)
+img_background_sprite.position = (-84, 0)
 
 # create new player
 
@@ -54,18 +59,18 @@ def new_enemey():
 	return a;
 
 
-#create_projectile
+# create_projectile
 def new_projectile():
 	a = {
 		"sprite": pyglet.sprite.Sprite(img_bullet) ,
-		"speed" : 500,
+		"speed": 500,
 	}
-	#ilagay yung bullet sa player
+	# ilagay yung bullet sa player
 	a["sprite"].position = player["sprite"].position
 
 	def update(dt):
 		spr = a["sprite"]
-		spr.position = ( spr.position[0] + a["speed"]*dt , spr.position[1] )
+		spr.position = (spr.position[0] + a["speed"]*dt, spr.position[1])
 
 	a["update"] = update
 	Projectile.append(a)
@@ -100,23 +105,26 @@ def update(dt):
 
 
 def spawn_enemies(dt):
-	new_enemey();
+	new_enemey()
 
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
 	if button == mouse.LEFT:
-		new_projectile();
+		new_projectile()
 
 @window.event
 def on_mouse_motion(x, y, dx, dy):
-    mouse_position[0] = x
-    mouse_position[1] = y
+	mouse_position[0] = x
+	mouse_position[1] = y
+
 
 @window.event
 def on_draw():
 
 	window.clear()
+
+	img_background_sprite.draw()
 
 	for i in Enemies:
 		i["sprite"].draw()
