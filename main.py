@@ -2,6 +2,8 @@ import pyglet
 import random
 from pyglet.window import key
 from pyglet.window import mouse
+from time import sleep
+from threading import Timer
 
 import player as Player
 import enemy as Enemy
@@ -21,14 +23,27 @@ Enemy.setImg([img_enemy, img_enemy, img_enemy])
 # Projectile.set_img(img_bullet)
 
 
-
+#mouse
 mouse_position = [0, 0]
+
+
 step = 0					# 30 steps == 1s
 score = 0
 
 player = Player.add(mouse_position)
 lives = 3
 score = 0
+
+
+phase = 0
+'''
+
+    0 - Game Menu
+    1 - Play
+    2 - highscore
+
+'''
+
 
 
 def check_collision():
@@ -52,16 +67,20 @@ def controller():
     if step % 8 == 0:
 
         if step < 20*30:
-            Enemy.add(0)		# Normal not curve
+            Enemy.add(0)		                # Normal not curve
         elif step < 90*30:
-            Enemy.add(random.randint(1, 1))		# Normal curve or not
+            Enemy.add(random.randint(0, 1))		# Normal curve or not
         elif step == 5*30:
-            Enemy.add(2)						# Boss
+            Enemy.add(random.randint(0, 2))						# Boss
+        else:
+            Enemy.add(random.randint(0, 1))                     # Boss
 
+def update_phase_0(dt):
+    ...
 
-def update(dt):
-    global step, score, lives
-
+def update_phase_1(dt):
+    global phase, step, score, lives
+    
     controller()
 
     Player.update(dt)
@@ -70,17 +89,48 @@ def update(dt):
 
     check_collision()
 
-    Hud.update(dt,lives)
-
-    score += 1
+    score += 0.1
     step += 1
 
-'''
+def update_phase_2(dt):
+    ...
+
+
+
+def update(dt):
+
+    if phase == 0:
+        update_phase_0(dt)
+    elif phase == 1:
+        update_phase_1(dt)
+    else:
+        update_phase_2(dt)
+
+
+    Hud.update(phase,dt,lives,score,mouse_position,goto_phase)
+
+def goto_phase(p):
+    global phase
+
+    if p==3:
+        pyglet.clock.unschedule(update)
+        pyglet.app.exit()
+
+    sleep(0.1)
+    phase = p
+
+
 @window.event
 def on_mouse_press(x, y, button, modifiers):
+
     if button == mouse.LEFT:
-        Projectile.new_projectile()
-'''
+        # Projectile.new_projectile() 
+        Hud.on_mouse_press()
+
+@window.event
+def on_mouse_release(x, y, button, modifiers):
+    if button == mouse.LEFT:
+        Hud.on_mouse_release()
 
 @window.event
 def on_mouse_motion(x, y, dx, dy):
@@ -90,14 +140,21 @@ def on_mouse_motion(x, y, dx, dy):
 
 @window.event
 def on_draw():
-
+    global phase
     window.clear()
 
-    Player.draw()
-    Enemy.draw()
-    #Projectile.draw()
+    if phase == 0:
+        ...
+    elif phase == 1:
+        Player.draw()
+        Enemy.draw()
+        #Projectile.draw()
+    else:
+        ...
 
-    Hud.draw()
+
+    Hud.draw(phase)
 
 pyglet.clock.schedule_interval(update, 1/60) 			# update every 1/60 s , i.e. run @ 60 fps
+
 pyglet.app.run()
