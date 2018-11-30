@@ -59,10 +59,16 @@ def check_collision():
             player["immune"] = True
             lives -= 1
 
+def free_memory():
 
+    for a in Enemy.Enemies:
+        if a["sprite"].position[0] < 0 :
+            Enemy.Enemies.remove(a)
+    for a in Projectile.Projectiles:
+        if a["sprite"].position[0] > window.width :
+            Projectile.Projectiles.remove(a)
 
-
-def controller():
+def spawn_enemy():
     global step
     if step % 8 == 0:
 
@@ -81,13 +87,14 @@ def update_phase_0(dt):
 def update_phase_1(dt):
     global phase, step, score, lives
     
-    controller()
+    spawn_enemy()
 
     Player.update(dt)
     Enemy.update(dt,player)
-    #Projectile.update(dt)
+    Projectile.update(dt)
 
     check_collision()
+    free_memory()
 
     score += 0.1
     step += 1
@@ -124,7 +131,7 @@ def goto_phase(p):
 def on_mouse_press(x, y, button, modifiers):
 
     if button == mouse.LEFT:
-        # Projectile.new_projectile() 
+        Projectile.new_projectile(player) 
         Hud.on_mouse_press()
 
 @window.event
@@ -146,9 +153,9 @@ def on_draw():
     if phase == 0:
         ...
     elif phase == 1:
+        Projectile.draw()
         Player.draw()
         Enemy.draw()
-        #Projectile.draw()
     else:
         ...
 
