@@ -10,7 +10,8 @@ def setImg(new_img):
 def add(mouse_position):
 	global a
 	a = {
-			"sprite":  pyglet.sprite.Sprite(img)
+			"sprite":  pyglet.sprite.Sprite(img),
+			"immune" : False
 		}
 	
 	a["sprite"].position = (0, 0)

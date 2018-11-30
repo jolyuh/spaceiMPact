@@ -6,6 +6,7 @@ from pyglet.window import mouse
 import player as Player
 import enemy as Enemy
 import projectile as Projectile
+import hud as Hud
 
 
 window = pyglet.window.Window(width=720, height=500)
@@ -26,6 +27,26 @@ step = 0					# 30 steps == 1s
 score = 0
 
 player = Player.add(mouse_position)
+lives = 3
+score = 0
+
+
+def check_collision():
+    global lives
+    p1 = player["sprite"].position
+
+    for a in Enemy.Enemies:
+        p2 = a["sprite"].position
+        d = (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2 
+        
+        if d < 70**2 and not(player["immune"]):
+            Enemy.Enemies.remove(a)   #delete self
+            player["immune"] = True
+            lives -= 1
+
+
+
+
 def controller():
     global step
     if step % 8 == 0:
@@ -39,13 +60,17 @@ def controller():
 
 
 def update(dt):
-    global step, score
+    global step, score, lives
 
     controller()
 
     Player.update(dt)
-    Enemy.update(dt)
+    Enemy.update(dt,player)
     #Projectile.update(dt)
+
+    check_collision()
+
+    Hud.update(dt,lives)
 
     score += 1
     step += 1
@@ -72,6 +97,7 @@ def on_draw():
     Enemy.draw()
     #Projectile.draw()
 
+    Hud.draw()
 
 pyglet.clock.schedule_interval(update, 1/60) 			# update every 1/60 s , i.e. run @ 60 fps
 pyglet.app.run()
