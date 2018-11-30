@@ -54,8 +54,7 @@ def update(dt):
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
-	if button == mouse.LEFT:
-		Projectile.new_projectile()
+	...
 
 
 @window.event
