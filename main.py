@@ -10,19 +10,19 @@ import projectile   as Projectile
 
 window = pyglet.window.Window(width=720, height=500)
 
-img_player = pyglet.image.load('assets/temporary/doge1_50px.png')
+img_player = pyglet.image.load('assets/temporary/doge.gif')
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy  = pyglet.image.load('assets/temporary/chocolate_28px.png')
 
 # Set sprites
 # Player.setImg([ frame1 , frame2 ])
-Enemy.setImg( [img_enemy,img_enemy,img_enemy])
+Enemy.setImg([img_enemy, img_enemy, img_enemy])
 # Projectile.setImg( img_bullet)
 
 
 # player = Player.add()
 
-mouse_position = [0,0]
+mouse_position = [0, 0]
 step = 0					# 30 steps == 1s
 score = 0
 
@@ -32,11 +32,11 @@ def controller():
 	if step % 8 == 0:
 
 		if step < 20*30:
-			Enemy.add(0)		#Normal not curve
+			Enemy.add(0)		# Normal not curve
 		elif step < 90*30:
-			Enemy.add(random.randint(1,1))		#Normal curve or not
-		elif step ==   5*(30) :
-			Enemy.add(2)						#Boss
+			Enemy.add(random.randint(1, 1))		# Normal curve or not
+		elif step == 5*30:
+			Enemy.add(2)						# Boss
 
 
 def update(dt):
