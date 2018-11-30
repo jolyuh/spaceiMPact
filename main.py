@@ -4,8 +4,8 @@ from pyglet.window import key
 from pyglet.window import mouse
 
 import player as Player
-import enemy as Enemy
 import projectile as Projectile
+import enemy as Enemy
 
 
 window = pyglet.window.Window(width=720, height=500)
