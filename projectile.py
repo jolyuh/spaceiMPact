@@ -6,10 +6,6 @@ Projectiles = []
 img = [None]
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 
-def set_img(new_img):
-    global img
-    img = new_img
-
 
 # create projectile
 def new_projectile():
@@ -28,3 +24,16 @@ def new_projectile():
     a["update"] = update
     Projectiles.append(a)
     return a
+
+
+def update(dt):
+    for i in Projectiles:
+        i["update"](dt)
+
+
+def draw():
+    for i in Projectiles:
+        i["sprite"].draw()
+
+
+pyglet.clock.schedule_interval(new_projectile().update, 1/60)
