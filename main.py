@@ -20,9 +20,9 @@ img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy = pyglet.image.load('assets/temporary/chocolate_28px.png')
 
 # Set sprites
-Player.setImg(img_player)
-Enemy.setImg([img_enemy, img_enemy, img_enemy])
-# Projectile.set_img(img_bullet)
+Player.set_img(img_player)
+Enemy.set_img([img_enemy, img_enemy, img_enemy])
+Projectile.set_img(img_bullet)
 
 
 # mouse
