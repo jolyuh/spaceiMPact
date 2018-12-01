@@ -7,6 +7,7 @@ def setImg(new_img):
 	global img
 	img = new_img
 
+
 def add(mouse_position):
 	global a
 	a = {
@@ -15,6 +16,7 @@ def add(mouse_position):
 		}
 	
 	a["sprite"].position = (0, 0)
+
 	def update(dt):
 		spr = a["sprite"]
 		spr.position = (25, mouse_position[1] - 25)
@@ -22,6 +24,7 @@ def add(mouse_position):
 	a["update"] = update
 	
 	return a
+
 
 def update(dt):
 	a["update"](dt)

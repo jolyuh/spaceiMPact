@@ -30,7 +30,6 @@ mouse_position = [0, 0]
 
 
 step = 0					# 30 steps == 1s
-score = 0
 
 player = Player.add(mouse_position)
 lives = 3
@@ -47,7 +46,6 @@ phase = 0
 '''
 
 
-
 def check_collision():
     global lives
     p1 = player["sprite"].position
@@ -61,6 +59,7 @@ def check_collision():
             player["immune"] = True
             lives -= 1
 
+
 def free_memory():
 
     for a in Enemy.Enemies:
@@ -69,6 +68,7 @@ def free_memory():
     for a in Projectile.Projectiles:
         if a["sprite"].position[0] > window.width :
             Projectile.Projectiles.remove(a)
+
 
 def spawn_enemy():
     global step
@@ -83,8 +83,10 @@ def spawn_enemy():
         else:
             Enemy.add(random.randint(0, 1))                     # Boss
 
+
 def update_phase_0(dt):
     ...
+
 
 def update_phase_1(dt):
     global phase, step, score, lives
@@ -101,9 +103,9 @@ def update_phase_1(dt):
     score += 0.1
     step += 1
 
+
 def update_phase_2(dt):
     ...
-
 
 
 def update(dt):
@@ -115,13 +117,13 @@ def update(dt):
     else:
         update_phase_2(dt)
 
-
     Hud.update(phase,dt,lives,score,mouse_position,goto_phase)
+
 
 def goto_phase(p):
     global phase
 
-    if p==3:
+    if p == 3:
         pyglet.clock.unschedule(update)
         pyglet.app.exit()
 
@@ -136,10 +138,12 @@ def on_mouse_press(x, y, button, modifiers):
         Projectile.new_projectile(player) 
         Hud.on_mouse_press()
 
+
 @window.event
 def on_mouse_release(x, y, button, modifiers):
     if button == mouse.LEFT:
         Hud.on_mouse_release()
+
 
 @window.event
 def on_mouse_motion(x, y, dx, dy):
@@ -161,8 +165,8 @@ def on_draw():
     else:
         ...
 
-
     Hud.draw(phase)
+
 
 pyglet.clock.schedule_interval(update, 1/60) 			# update every 1/60 s , i.e. run @ 60 fps
 
