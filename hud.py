@@ -34,7 +34,8 @@ doge_sprite.scale = 0.5
 
 # PHASE 1
 label_lives = pyglet.text.Label("", font_name='8BIT WONDER', font_size=13, x=10, y=480)
-label_score = pyglet.text.Label("", font_name='8BIT WONDER', font_size=13, x=340, y=480)
+label_score = pyglet.text.Label("", font_name='8BIT WONDER', font_size=13, x=290, y=480)
+label_hiscore = pyglet.text.Label("", font_name='8BIT WONDER', font_size=13, x=500, y=480)
 
 
 
@@ -43,10 +44,10 @@ label_score = pyglet.text.Label("", font_name='8BIT WONDER', font_size=13, x=340
 label_gameover = pyglet.text.Label("GAME OVER", font_name='8BIT WONDER', font_size=30, x=180, y=280)
 
 label_game_ur_score = pyglet.text.Label("YOUR SCORE", font_name='8BIT WONDER', font_size=10, x=210, y=240)
-label_game_score = pyglet.text.Label("32", font_name='8BIT WONDER', font_size=30, x=235, y=190)
+label_game_score = pyglet.text.Label("32", font_name='8BIT WONDER', font_size=25, x=235, y=190)
 
 label_game_val_hiscore = pyglet.text.Label("HIGH SCORE", font_name='8BIT WONDER', font_size=10, x=370, y=240)
-label_game_hiscore = pyglet.text.Label("120", font_name='8BIT WONDER', font_size=30, x=380, y=190)
+label_game_hiscore = pyglet.text.Label("120", font_name='8BIT WONDER', font_size=25, x=380, y=190)
 
 button_home =pyglet.text.Label("MENU",    font_name='8BIT WONDER', font_size=20, x=300, y=120)
 
@@ -73,6 +74,7 @@ def update(phase, dt, lives, score, mouse_position, goto_phase, highscore):
     elif phase == 1:
         label_lives.text = "Lives: " + str(lives)
         label_score.text = "Score: " + str(math.floor(score))
+        label_hiscore.text = "HI: " + str(math.floor(highscore))
 
     elif phase ==2:
         
@@ -123,6 +125,7 @@ def draw(phase):
     elif phase == 1:
         label_lives.draw()
         label_score.draw()
+        label_hiscore.draw()
 
     elif phase == 2:
         label_gameover.draw()

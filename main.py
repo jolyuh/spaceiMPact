@@ -10,6 +10,7 @@ import player as Player
 import projectile as Projectile
 import enemy as Enemy
 import hud as Hud
+import particles as Particle
 
 
 window = pyglet.window.Window(width=720, height=500)
@@ -60,7 +61,7 @@ phase = 0
 
 
 def check_collision():
-    global lives
+    global lives, score
     player_position = player["sprite"].position
 
     # checks for collision between enemy sprite and player sprite
@@ -68,18 +69,30 @@ def check_collision():
         enemy_position = a["sprite"].position
         d = (player_position[0] - enemy_position[0])**2 + (player_position[1] - enemy_position[1])**2
         
-        if d < 70**2:
+        if d < 50**2:
             if not a["boss"]:
-               Enemy.Enemies.remove(a)   # delete self
-            if not(player["immune"]):
-                player["immune"] = True
-                lives -= 1
+                if d < 30**2:
+                    Enemy.Enemies.remove(a)   # delete self
+                    if not(player["immune"]):
+                        player["immune"] = True
+                        Player.counter = 0
+                        lives -= 1
+                    Particle.new_particle_system_dog(player_position)
+            else:
+                a["target"] =  ( 500, 220 )
+                if not(player["immune"]):
+                    player["immune"] = True
+                    Player.counter = 0
+                    lives -= 1
+                Particle.new_particle_system_dog(player_position)
+
 
     # checks for collision between enemy sprite and projectiles
     for heart in Projectile.Projectiles:
         heart_position = heart["sprite"].position
 
         for chocolate in Enemy.Enemies:
+
             enemy_position = chocolate["sprite"].position
             # calculate distance between enemy and projectile
             d = (heart_position[0] - enemy_position[0])**2 + (heart_position[1] - enemy_position[1])**2
@@ -87,7 +100,12 @@ def check_collision():
             if d < 30**2:
                 if not chocolate["boss"]:
                     Enemy.Enemies.remove(chocolate)  # delete enemy
+                else:
+                    chocolate["sprite"].color = (255,0,0)
+                score+=2
+                Particle.new_particle_system(heart_position)
                 Projectile.Projectiles.remove(heart)  # delete projectile
+                break
 
 
 def free_memory():
@@ -102,9 +120,11 @@ def free_memory():
 
 def spawn_enemy():
     global step
-    if step == 15 * 60:  #15 def
+    if step == 30 * 60:  #15 def
             Enemy.add(random.randint(2, 2))
-    elif step % 8 == 0:
+    elif step >= (60*60) and step % (60 * 60) == 1:  #15 def
+            Enemy.add(random.randint(2, 2))
+    elif step % ( max(9-math.floor(step/(10*30) ) , 4) if step < 90*60 else 2) == 0:
 
         if step < 5 * 60:
             Enemy.add(0)		                # Normal not curve
@@ -126,6 +146,7 @@ def update_phase_1(dt):
     Player.update(dt)
     Enemy.update(dt, player)
     Projectile.update(dt)
+    Particle.update(dt,player)
 
     check_collision()
     free_memory()
@@ -176,6 +197,11 @@ def goto_phase(p):
 
         Enemy.Enemies = []
 
+
+        for i in Particle.Particles:
+            Particle.Particles.remove(i)
+        Particle.Particles = []
+
         if score > highscore:
             f = open("top.dat", "w")
             f.write(str(math.floor(score)))
@@ -220,6 +246,7 @@ def on_draw():
         Projectile.draw()
         Player.draw()
         Enemy.draw()
+        Particle.draw()
     else:
         ...
 

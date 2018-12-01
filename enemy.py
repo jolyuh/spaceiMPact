@@ -84,6 +84,8 @@ def add(enemy_type):
             if t> 60*60:
                 a["sprite"].rotation = 2*random.uniform(-1,1)
 
+            a["sprite"].color = ( 255 , (255-a["sprite"].color[1])/3 + a["sprite"].color[1], (255-a["sprite"].color[2])/3 + a["sprite"].color[2]   )
+
             goto(a["target"])
 
 
