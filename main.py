@@ -18,6 +18,10 @@ doge_bin = pyglet.image.atlas.TextureBin()
 img_player.add_to_texture_bin(doge_bin)
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy = pyglet.image.load('assets/temporary/chocolate_28px.png')
+img_background = pyglet.image.load_animation('assets/temporary/plain_space_bg.gif')
+bg_bin = pyglet.image.atlas.TextureBin()
+img_background.add_to_texture_bin(bg_bin)
+img_background_sprite = pyglet.sprite.Sprite(img_background)
 
 # Set sprites
 Player.set_img(img_player)
@@ -93,7 +97,7 @@ def update_phase_1(dt):
     spawn_enemy()
 
     Player.update(dt)
-    Enemy.update(dt,player)
+    Enemy.update(dt, player)
     Projectile.update(dt)
 
     check_collision()
@@ -158,6 +162,7 @@ def on_draw():
     if phase == 0:
         ...
     elif phase == 1:
+        img_background_sprite.draw()
         Projectile.draw()
         Player.draw()
         Enemy.draw()
