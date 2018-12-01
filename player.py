@@ -7,6 +7,7 @@ def set_img(new_img):
     global img
     img = new_img
 
+
 def add(mouse_position):
     global a
     a = {
@@ -24,13 +25,14 @@ def add(mouse_position):
         spr = a["sprite"]
         spr.position = (25, mouse_position[1] - 25)
         
-        if counter > 2*60 and a["immune"] == True:
+        if counter > 2*60 and a["immune"] is True:
             a["immune"] = False
             counter = 0
             
     a["update"] = update
 
     return a
+
 
 def update(dt):
     global counter
@@ -40,4 +42,3 @@ def update(dt):
 
 def draw():
     a["sprite"].draw()
-

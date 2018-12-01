@@ -17,7 +17,8 @@ img_player = pyglet.image.load_animation('assets/temporary/doge.gif')
 doge_bin = pyglet.image.atlas.TextureBin()
 img_player.add_to_texture_bin(doge_bin)
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
-img_enemy = pyglet.image.load('assets/temporary/chocolate_28px.png')
+img_enemy_1 = pyglet.image.load('assets/temporary/chocolate_28px.png')
+img_enemy_3 = pyglet.image.load('assets/temporary/evil_nyan_cat.png')
 img_background = pyglet.image.load_animation('assets/temporary/plain_space_bg.gif')
 bg_bin = pyglet.image.atlas.TextureBin()
 img_background.add_to_texture_bin(bg_bin)
@@ -25,7 +26,7 @@ img_background_sprite = pyglet.sprite.Sprite(img_background)
 
 # Set sprites
 Player.set_img(img_player)
-Enemy.set_img([img_enemy, img_enemy, img_enemy])
+Enemy.set_img([img_enemy_1, img_enemy_1, img_enemy_3])
 Projectile.set_img(img_bullet)
 
 
@@ -51,16 +52,30 @@ phase = 0
 
 def check_collision():
     global lives
-    p1 = player["sprite"].position
+    player_position = player["sprite"].position
 
+    # checks for collision between enemy sprite and player sprite
     for a in Enemy.Enemies:
-        p2 = a["sprite"].position
-        d = (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2 
+        enemy_position = a["sprite"].position
+        d = (player_position[0] - enemy_position[0])**2 + (player_position[1] - enemy_position[1])**2
         
         if d < 70**2 and not(player["immune"]):
             Enemy.Enemies.remove(a)   # delete self
             player["immune"] = True
             lives -= 1
+
+    # checks for collision between enemy sprite and projectiles
+    for heart in Projectile.Projectiles:
+        heart_position = heart["sprite"].position
+
+        for chocolate in Enemy.Enemies:
+            enemy_position = chocolate["sprite"].position
+            # calculate distance between enemy and projectile
+            d = (heart_position[0] - enemy_position[0])**2 + (heart_position[1] - enemy_position[1])**2
+
+            if d < 30**2:
+                Enemy.Enemies.remove(chocolate)  # delete enemy
+                Projectile.Projectiles.remove(heart)  # delete projectile
 
 
 def free_memory():
