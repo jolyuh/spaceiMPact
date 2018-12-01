@@ -8,6 +8,8 @@ from pyglet import font
 font.add_file('assets/temporary/8-BIT-WONDER.ttf')
 new_font = font.load('8BIT WONDER', 16)
 
+
+
 # PHASE 0
 
 label_title = pyglet.text.Label("GAME NAME", font_name='8BIT WONDER', font_size=30, x=180, y=280)
@@ -19,8 +21,8 @@ time = [0]
 
 label_button = []
 label_button.append(pyglet.text.Label("PLAY",	  font_name='8BIT WONDER', font_size=17, x=320, y=180))
-label_button.append(pyglet.text.Label("HIGH SCORES", font_name='8BIT WONDER', font_size=17, x=260, y=150) )
-label_button.append(pyglet.text.Label("QUIT",	  font_name='8BIT WONDER', font_size=17, x=320, y=120))
+# label_button.append(pyglet.text.Label("HIGH SCORES", font_name='8BIT WONDER', font_size=17, x=260, y=150) )
+label_button.append(pyglet.text.Label("QUIT",	  font_name='8BIT WONDER', font_size=17, x=325, y=150))
 
 mouse_down = False
 mouse_prev = False
@@ -48,7 +50,7 @@ label_game_hiscore = pyglet.text.Label("120", font_name='8BIT WONDER', font_size
 
 button_home =pyglet.text.Label("MENU",    font_name='8BIT WONDER', font_size=20, x=300, y=120)
 
-def update(phase, dt, lives, score, mouse_position, goto_phase):
+def update(phase, dt, lives, score, mouse_position, goto_phase, highscore):
     global mouse_prev , mouse_down
 
     if phase == 0:
@@ -62,7 +64,7 @@ def update(phase, dt, lives, score, mouse_position, goto_phase):
                 i.color = (255, 100, 100, 255)
                 if mouse_down and i is label_button[0]:
                     goto_phase(1)
-                elif mouse_down and i is label_button[2]:
+                elif mouse_down and i is label_button[1]:
                     goto_phase(4)
 
             else:
@@ -75,6 +77,7 @@ def update(phase, dt, lives, score, mouse_position, goto_phase):
     elif phase ==2:
         
         label_game_score.text = str(math.floor(score))
+        label_game_hiscore.text = str(math.floor(highscore))
         but = button_home
         dx = mouse_position[0] - but.x
         dy = mouse_position[1] - but.y

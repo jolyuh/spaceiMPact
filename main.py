@@ -1,5 +1,6 @@
 import pyglet
 import random
+import math
 from pyglet.window import key
 from pyglet.window import mouse
 from time import sleep
@@ -29,6 +30,12 @@ Player.set_img(img_player)
 Enemy.set_img([img_enemy_1, img_enemy_1, img_enemy_3])
 Projectile.set_img(img_bullet)
 
+# load highscore
+global highscore
+fin = open("top.dat")
+highscore = int(fin.read())
+
+
 
 # mouse
 mouse_position = [0, 0]
@@ -39,6 +46,7 @@ step = 0					# 30 steps == 1s
 player = Player.add(mouse_position)
 lives = 3
 score = 0
+
 
 phase = 0
 '''
@@ -122,7 +130,7 @@ def update_phase_1(dt):
 
     if lives <= 0:
         sleep(2)
-        phase = 2
+        goto_phase(2)
 
     score += 0.1
     step += 1
@@ -141,12 +149,35 @@ def update(dt):
     else:
         update_phase_2(dt)
 
-    Hud.update(phase, dt, lives, score, mouse_position, goto_phase)
+    Hud.update(phase, dt, lives, score, mouse_position, goto_phase,highscore)
 
 
 def goto_phase(p):
-    global phase
+    global phase, score, highscore, lives, step
 
+    if p == 1:
+        score = 0 
+        lives = 3
+        step = 0
+
+    if p == 2:
+
+        #destroy instances
+
+        for i in Projectile.Projectiles:
+            Projectiles.Projectiles.remove(i)
+        
+        Projectile.Projectiles = []
+
+        for i in Enemy.Enemies:
+            Enemy.Enemies.remove(i)
+
+        Enemy.Enemies = []
+
+        if score > highscore:
+            f = open("top.dat", "w")
+            f.write(str(math.floor(score)))
+            highscore=score
     if p == 4:
         pyglet.clock.unschedule(update)
         pyglet.app.exit()
