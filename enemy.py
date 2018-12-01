@@ -55,7 +55,7 @@ def add(enemy_type):
 
         if t < 30:
             goto( ( 500, 220 ) )
-        elif t< 60*60:
+        else:
             m = t%(3*60)
             if  m==0:
                 a["target"] = ( 550, 220 )
@@ -69,11 +69,20 @@ def add(enemy_type):
                 else:
                     a["target"] =( 450, 220 )
             elif m==90:
-                if random.uniform(0,1)>0.8 :
-                    a["target"] = player["sprite"].position 
+
+                if t > 60*60:
+                    if random.uniform(0,1)>0.5 :
+                        a["target"] = ( player["sprite"].position[0] + 100*random.uniform(-1,1) , player["sprite"].position[1]  )
+                    
+                else:
+                    if random.uniform(0,1)>0.8 :
+                        a["target"] = player["sprite"].position 
+
             elif m==150:
                 a["target"] = ( 550, 220 )
 
+            if t> 60*60:
+                a["sprite"].rotation = 2*random.uniform(-1,1)
 
             goto(a["target"])
 

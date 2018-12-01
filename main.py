@@ -102,13 +102,13 @@ def free_memory():
 
 def spawn_enemy():
     global step
-    if step == 12 * 60:
+    if step == 15 * 60:  #15 def
             Enemy.add(random.randint(2, 2))
     elif step % 8 == 0:
 
         if step < 5 * 60:
             Enemy.add(0)		                # Normal not curve
-        elif step < 8 * 60:
+        elif step < 10 * 60:
             Enemy.add(random.randint(0, 1))		# Normal curve or not
         else:
             Enemy.add(random.randint(0, 1))                     # normal
