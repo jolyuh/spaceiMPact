@@ -69,7 +69,8 @@ def check_collision():
         d = (player_position[0] - enemy_position[0])**2 + (player_position[1] - enemy_position[1])**2
         
         if d < 70**2:
-            Enemy.Enemies.remove(a)   # delete self
+            if not a["boss"]:
+               Enemy.Enemies.remove(a)   # delete self
             if not(player["immune"]):
                 player["immune"] = True
                 lives -= 1
@@ -84,7 +85,8 @@ def check_collision():
             d = (heart_position[0] - enemy_position[0])**2 + (heart_position[1] - enemy_position[1])**2
 
             if d < 30**2:
-                Enemy.Enemies.remove(chocolate)  # delete enemy
+                if not chocolate["boss"]:
+                    Enemy.Enemies.remove(chocolate)  # delete enemy
                 Projectile.Projectiles.remove(heart)  # delete projectile
 
 
@@ -100,16 +102,16 @@ def free_memory():
 
 def spawn_enemy():
     global step
-    if step % 8 == 0:
+    if step == 5 * 60:
+            Enemy.add(random.randint(2, 2))
+    elif step % 8 == 0:
 
-        if step < 20 * 30:
+        if step < 5 * 60:
             Enemy.add(0)		                # Normal not curve
-        elif step < 90 * 30:
+        elif step < 10 * 60:
             Enemy.add(random.randint(0, 1))		# Normal curve or not
-        elif step == 5 * 30:
-            Enemy.add(random.randint(0, 2))						# Boss
         else:
-            Enemy.add(random.randint(0, 1))                     # Boss
+            Enemy.add(random.randint(0, 1))                     # normal
 
 
 def update_phase_0(dt):
@@ -165,7 +167,7 @@ def goto_phase(p):
         #destroy instances
 
         for i in Projectile.Projectiles:
-            Projectiles.Projectiles.remove(i)
+            Projectile.Projectiles.remove(i)
         
         Projectile.Projectiles = []
 
