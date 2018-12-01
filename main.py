@@ -44,7 +44,8 @@ phase = 0
 
     0 - Game Menu
     1 - Play
-    2 - High Scores
+    2 - Game over screen
+    3 - High Scores
 
 '''
 
@@ -57,10 +58,11 @@ def check_collision():
         p2 = a["sprite"].position
         d = (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2 
         
-        if d < 70**2 and not(player["immune"]):
+        if d < 70**2:
             Enemy.Enemies.remove(a)   # delete self
-            player["immune"] = True
-            lives -= 1
+            if not(player["immune"]):
+                player["immune"] = True
+                lives -= 1
 
 
 def free_memory():
@@ -103,6 +105,10 @@ def update_phase_1(dt):
     check_collision()
     free_memory()
 
+    if lives <= 0:
+        sleep(2)
+        phase = 2
+
     score += 0.1
     step += 1
 
@@ -126,13 +132,18 @@ def update(dt):
 def goto_phase(p):
     global phase
 
-    if p == 3:
+    if p == 4:
         pyglet.clock.unschedule(update)
         pyglet.app.exit()
 
     sleep(0.1)
     phase = p
 
+
+@window.event
+def on_mouse_motion(x, y, dx, dy):
+    mouse_position[0] = x
+    mouse_position[1] = y
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
@@ -147,11 +158,6 @@ def on_mouse_release(x, y, button, modifiers):
     if button == mouse.LEFT:
         Hud.on_mouse_release()
 
-
-@window.event
-def on_mouse_motion(x, y, dx, dy):
-    mouse_position[0] = x
-    mouse_position[1] = y
 
 
 @window.event

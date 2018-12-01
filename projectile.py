@@ -37,4 +37,5 @@ def draw():
         i["sprite"].draw()
 
 
-pyglet.clock.schedule_interval(update, 1/60)
+# Di na ata to kailangan?
+# pyglet.clock.schedule_interval(update, 1/60)

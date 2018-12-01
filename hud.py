@@ -19,10 +19,11 @@ time = [0]
 
 label_button = []
 label_button.append(pyglet.text.Label("PLAY",	  font_name='8BIT WONDER', font_size=17, x=320, y=180))
-label_button.append(pyglet.text.Label("HIGH SCORES", font_name='8BIT WONDER', font_size=17, x=270, y=150) )
+label_button.append(pyglet.text.Label("HIGH SCORES", font_name='8BIT WONDER', font_size=17, x=260, y=150) )
 label_button.append(pyglet.text.Label("QUIT",	  font_name='8BIT WONDER', font_size=17, x=320, y=120))
 
 mouse_down = False
+mouse_prev = False
 
 buttons = [(320, 180), (270, 150), (320, 120)]
 
@@ -34,7 +35,21 @@ label_lives = pyglet.text.Label("", font_name='8BIT WONDER', font_size=13, x=10,
 label_score = pyglet.text.Label("", font_name='8BIT WONDER', font_size=13, x=340, y=480)
 
 
+
+# PHASE 2
+
+label_gameover = pyglet.text.Label("GAME OVER", font_name='8BIT WONDER', font_size=30, x=180, y=280)
+
+label_game_ur_score = pyglet.text.Label("YOUR SCORE", font_name='8BIT WONDER', font_size=10, x=210, y=240)
+label_game_score = pyglet.text.Label("32", font_name='8BIT WONDER', font_size=30, x=235, y=190)
+
+label_game_val_hiscore = pyglet.text.Label("HIGH SCORE", font_name='8BIT WONDER', font_size=10, x=370, y=240)
+label_game_hiscore = pyglet.text.Label("120", font_name='8BIT WONDER', font_size=30, x=380, y=190)
+
+button_home =pyglet.text.Label("MENU",    font_name='8BIT WONDER', font_size=20, x=300, y=120)
+
 def update(phase, dt, lives, score, mouse_position, goto_phase):
+    global mouse_prev , mouse_down
 
     if phase == 0:
 
@@ -48,7 +63,7 @@ def update(phase, dt, lives, score, mouse_position, goto_phase):
                 if mouse_down and i is label_button[0]:
                     goto_phase(1)
                 elif mouse_down and i is label_button[2]:
-                    goto_phase(3)
+                    goto_phase(4)
 
             else:
                 i.color = (255, 255, 255, 255)
@@ -57,9 +72,20 @@ def update(phase, dt, lives, score, mouse_position, goto_phase):
         label_lives.text = "Lives: " + str(lives)
         label_score.text = "Score: " + str(math.floor(score))
 
-    else:
-        ...
+    elif phase ==2:
+        
+        label_game_score.text = str(math.floor(score))
+        but = button_home
+        dx = mouse_position[0] - but.x
+        dy = mouse_position[1] - but.y
 
+        if dx >= 0 and dx <= but.content_width and dy >= 0 and dy <= but.content_height:
+            but.color = (255, 100, 100, 255)
+            if not(mouse_down) and mouse_prev:
+                goto_phase(0)
+        else:
+            but.color = (255, 255, 255, 255)
+    mouse_prev  =mouse_down
 
 def on_mouse_press():
     global mouse_down
@@ -79,8 +105,12 @@ def draw(phase):
         time[0] += 1
 
         if (time[0] // 30)&1 :
+            doge_sprite.rotation = 5
+            doge_sprite.position = (320,330)
             doge_sprite.image = dog1_image
         else:
+            doge_sprite.rotation = -2
+            doge_sprite.position = (320,324)
             doge_sprite.image = dog2_image
         doge_sprite.draw()
 
@@ -91,5 +121,22 @@ def draw(phase):
         label_lives.draw()
         label_score.draw()
 
-    else:
-        ...
+    elif phase == 2:
+        label_gameover.draw()
+        label_game_ur_score.draw()
+        label_game_score.draw()
+        label_game_val_hiscore.draw()
+        label_game_hiscore.draw()
+
+        time[0] += 1
+        if (time[0] // 30)&1 :
+            doge_sprite.rotation = 5
+            doge_sprite.position = (320,330)
+            doge_sprite.image = dog1_image
+        else:
+            doge_sprite.rotation = -2
+            doge_sprite.position = (320,324)
+            doge_sprite.image = dog2_image
+        doge_sprite.draw()
+
+        button_home.draw()
