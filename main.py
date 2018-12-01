@@ -40,7 +40,7 @@ phase = 0
 
     0 - Game Menu
     1 - Play
-    2 - highscore
+    2 - High Scores
 
 '''
 
@@ -54,7 +54,7 @@ def check_collision():
         d = (p1[0] - p2[0])**2 + (p1[1] - p2[1])**2 
         
         if d < 70**2 and not(player["immune"]):
-            Enemy.Enemies.remove(a)   #delete self
+            Enemy.Enemies.remove(a)   # delete self
             player["immune"] = True
             lives -= 1
 
@@ -62,10 +62,10 @@ def check_collision():
 def free_memory():
 
     for a in Enemy.Enemies:
-        if a["sprite"].position[0] < 0 :
+        if a["sprite"].position[0] < 0:
             Enemy.Enemies.remove(a)
     for a in Projectile.Projectiles:
-        if a["sprite"].position[0] > window.width :
+        if a["sprite"].position[0] > window.width:
             Projectile.Projectiles.remove(a)
 
 
@@ -73,11 +73,11 @@ def spawn_enemy():
     global step
     if step % 8 == 0:
 
-        if step < 20*30:
+        if step < 20 * 30:
             Enemy.add(0)		                # Normal not curve
-        elif step < 90*30:
+        elif step < 90 * 30:
             Enemy.add(random.randint(0, 1))		# Normal curve or not
-        elif step == 5*30:
+        elif step == 5 * 30:
             Enemy.add(random.randint(0, 2))						# Boss
         else:
             Enemy.add(random.randint(0, 1))                     # Boss
@@ -116,7 +116,7 @@ def update(dt):
     else:
         update_phase_2(dt)
 
-    Hud.update(phase,dt,lives,score,mouse_position,goto_phase)
+    Hud.update(phase, dt, lives, score, mouse_position, goto_phase)
 
 
 def goto_phase(p):
