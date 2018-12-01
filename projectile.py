@@ -1,6 +1,6 @@
 import pyglet
-import player as Player
-import main as Main
+# import player as Player
+# import main as Main
 
 Projectiles = []
 img = [None]
@@ -8,14 +8,14 @@ img_bullet = pyglet.image.load('assets/temporary/heart.png')
 
 
 # create projectile
-def new_projectile():
+def new_projectile(player):
     a = {
         "sprite": pyglet.sprite.Sprite(img_bullet),
-        "speed": 100
+        "speed": 400
     }
 
     # gives bullet to player
-    a["sprite"].position = (Main.window.width//2, Main.window.height//2)
+    a["sprite"].position = player["sprite"].position[0]+40 ,player["sprite"].position[1]+10 # (Main.window.width//2, Main.window.height//2)
 
     def update(dt):
         spr = a["sprite"]
@@ -36,4 +36,4 @@ def draw():
         i["sprite"].draw()
 
 
-pyglet.clock.schedule_interval(new_projectile().update, 1/60)
+# pyglet.clock.schedule_interval(new_projectile().update, 1/60)
