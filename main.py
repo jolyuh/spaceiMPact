@@ -7,12 +7,15 @@ from threading import Timer
 
 import player as Player
 import projectile as Projectile
+import enemy as Enemy
 import hud as Hud
 
 
 window = pyglet.window.Window(width=720, height=500)
 
-img_player = pyglet.image.load('assets/temporary/doge1_50px.png')
+img_player = pyglet.image.load_animation('assets/temporary/doge.gif')
+doge_bin = pyglet.image.atlas.TextureBin()
+img_player.add_to_texture_bin(doge_bin)
 img_bullet = pyglet.image.load('assets/temporary/heart.png')
 img_enemy = pyglet.image.load('assets/temporary/chocolate_28px.png')
 
