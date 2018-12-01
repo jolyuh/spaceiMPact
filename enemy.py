@@ -21,16 +21,16 @@ def add(enemy_type):
     a["sprite"].position = (720, a["initial_y"])
     a["sprite"].anchor = (12, 14)
 
-    def update1(dt):
+    def update1(dt,player):
         spr = a["sprite"]
         spr.rotation += a["omega"]
         spr.position = (spr.position[0] - a["speed"]*dt, a["initial_y"])
     
-    def update2(dt):
+    def update2(dt,player):
         spr = a["sprite"]
         spr.position = (spr.position[0] - a["speed"]*dt, a["initial_y"] + 100*math.sin(spr.position[0]/60))
 
-    def update3(dt):
+    def update3(dt,player):
         spr = a["sprite"]
         spr.position = (spr.position[0] - a["speed"]*dt, a["initial_y"] + math.sin(spr.position[0]))
 
