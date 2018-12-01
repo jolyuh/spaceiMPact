@@ -35,7 +35,6 @@ player = Player.add(mouse_position)
 lives = 3
 score = 0
 
-
 phase = 0
 '''
 
