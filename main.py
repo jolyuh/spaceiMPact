@@ -25,7 +25,7 @@ Enemy.setImg([img_enemy, img_enemy, img_enemy])
 # Projectile.set_img(img_bullet)
 
 
-#mouse
+# mouse
 mouse_position = [0, 0]
 
 
