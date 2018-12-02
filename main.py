@@ -1,6 +1,7 @@
 import pyglet
 import random
 import math
+import winsound
 from pyglet.window import mouse
 from time import sleep
 
@@ -61,14 +62,18 @@ def check_collision():
     global lives, score
     player_position = player["sprite"].position
 
+    hit_sfx = pyglet.resource.media('assets/temporary/explosion_x.wav', streaming=False)
+    
     # checks for collision between enemy sprite and player sprite
     for a in Enemy.Enemies:
         enemy_position = a["sprite"].position
         d = (player_position[0] - enemy_position[0])**2 + (player_position[1] - enemy_position[1])**2
         
         if d < 50**2:
+            
             if not a["boss"]:
                 if d < 30**2:
+                    hit_sfx.play()
                     Enemy.Enemies.remove(a)   # delete self
                     if not(player["immune"]):
                         player["immune"] = True
@@ -76,6 +81,7 @@ def check_collision():
                         lives -= 1
                     Particle.new_particle_system_dog(player_position)
             else:
+                hit_sfx.play()
                 a["target"] = (500, 220)
                 if not(player["immune"]):
                     player["immune"] = True
