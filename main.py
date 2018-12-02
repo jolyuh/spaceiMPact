@@ -223,14 +223,16 @@ def on_mouse_motion(x, y, dx, dy):
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
-
+    gun_sfx = pyglet.resource.media('assets/temporary/gun_44mag_11.wav', streaming=False)
     if button == mouse.LEFT:
-        Projectile.new_projectile(player) 
+        Projectile.new_projectile(player)
+        gun_sfx.play() 
         Hud.on_mouse_press()
 
 
 @window.event
 def on_mouse_release(x, y, button, modifiers):
+    
     if button == mouse.LEFT:
         Hud.on_mouse_release()
 
