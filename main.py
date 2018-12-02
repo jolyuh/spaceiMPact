@@ -25,6 +25,9 @@ bg_bin = pyglet.image.atlas.TextureBin()
 img_background.add_to_texture_bin(bg_bin)
 img_background_sprite = pyglet.sprite.Sprite(img_background)
 
+gun_sfx = pyglet.resource.media('assets/temporary/gun_44mag_11.wav', streaming=False)
+hit_sfx = pyglet.resource.media('assets/temporary/explosion_x.wav', streaming=False)
+
 # Set sprites
 Player.set_img(img_player)
 Enemy.set_img([img_enemy_1, img_enemy_1, img_enemy_3])
@@ -59,10 +62,10 @@ phase = 0
 
 
 def check_collision():
-    global lives, score
+    global lives, score, hit_sfx
     player_position = player["sprite"].position
 
-    hit_sfx = pyglet.resource.media('assets/temporary/explosion_x.wav', streaming=False)
+    
     
     # checks for collision between enemy sprite and player sprite
     for a in Enemy.Enemies:
@@ -223,11 +226,13 @@ def on_mouse_motion(x, y, dx, dy):
 
 @window.event
 def on_mouse_press(x, y, button, modifiers):
-    gun_sfx = pyglet.resource.media('assets/temporary/gun_44mag_11.wav', streaming=False)
+    global phase, gun_sfx
+
     if button == mouse.LEFT:
-        Projectile.new_projectile(player)
-        gun_sfx.play() 
         Hud.on_mouse_press()
+        if phase == 1:
+            Projectile.new_projectile(player) 
+            gun_sfx.play()
 
 
 @window.event
