@@ -1,10 +1,8 @@
 import pyglet
 import random
 import math
-from pyglet.window import key
 from pyglet.window import mouse
 from time import sleep
-from threading import Timer
 
 import player as Player
 import projectile as Projectile
@@ -31,12 +29,10 @@ Player.set_img(img_player)
 Enemy.set_img([img_enemy_1, img_enemy_1, img_enemy_3])
 Projectile.set_img(img_bullet)
 
-# load highscore
-global highscore
+# load high score
+global high_score
 fin = open("top.dat")
-highscore = int(fin.read())
-
-
+high_score = int(fin.read())
 
 # mouse
 mouse_position = [0, 0]
@@ -50,11 +46,12 @@ score = 0
 
 
 phase = 0
+
 '''
 
     0 - Game Menu
     1 - Play
-    2 - Game over screen
+    2 - Game Over Screen
     3 - High Scores
 
 '''
@@ -79,13 +76,12 @@ def check_collision():
                         lives -= 1
                     Particle.new_particle_system_dog(player_position)
             else:
-                a["target"] =  ( 500, 220 )
+                a["target"] = (500, 220)
                 if not(player["immune"]):
                     player["immune"] = True
                     Player.counter = 0
                     lives -= 1
                 Particle.new_particle_system_dog(player_position)
-
 
     # checks for collision between enemy sprite and projectiles
     for heart in Projectile.Projectiles:
@@ -101,8 +97,8 @@ def check_collision():
                 if not chocolate["boss"]:
                     Enemy.Enemies.remove(chocolate)  # delete enemy
                 else:
-                    chocolate["sprite"].color = (255,0,0)
-                score+=2
+                    chocolate["sprite"].color = (255, 0, 0)
+                score += 2
                 Particle.new_particle_system(heart_position)
                 Projectile.Projectiles.remove(heart)  # delete projectile
                 break
@@ -120,9 +116,9 @@ def free_memory():
 
 def spawn_enemy():
     global step
-    if step == 30 * 60:  #15 def
+    if step == 30 * 60:  # 15 def
             Enemy.add(random.randint(2, 2))
-    elif step >= (60*60) and step % (60 * 60) == 1:  #15 def
+    elif step >= (60*60) and step % (60 * 60) == 1:  # 15 def
             Enemy.add(random.randint(2, 2))
     elif step % ( max(9-math.floor(step/(10*30) ) , 4) if step < 90*60 else 2) == 0:
 
@@ -172,11 +168,11 @@ def update(dt):
     else:
         update_phase_2(dt)
 
-    Hud.update(phase, dt, lives, score, mouse_position, goto_phase,highscore)
+    Hud.update(phase, dt, lives, score, mouse_position, goto_phase, high_score)
 
 
 def goto_phase(p):
-    global phase, score, highscore, lives, step
+    global phase, score, high_score, lives, step
 
     if p == 1:
         score = 0 
@@ -197,15 +193,14 @@ def goto_phase(p):
 
         Enemy.Enemies = []
 
-
         for i in Particle.Particles:
             Particle.Particles.remove(i)
         Particle.Particles = []
 
-        if score > highscore:
+        if score > high_score:
             f = open("top.dat", "w")
             f.write(str(math.floor(score)))
-            highscore=score
+            high_score = score
     if p == 4:
         pyglet.clock.unschedule(update)
         pyglet.app.exit()
@@ -219,6 +214,7 @@ def on_mouse_motion(x, y, dx, dy):
     mouse_position[0] = x
     mouse_position[1] = y
 
+
 @window.event
 def on_mouse_press(x, y, button, modifiers):
 
@@ -231,7 +227,6 @@ def on_mouse_press(x, y, button, modifiers):
 def on_mouse_release(x, y, button, modifiers):
     if button == mouse.LEFT:
         Hud.on_mouse_release()
-
 
 
 @window.event

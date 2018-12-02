@@ -35,7 +35,3 @@ def update(dt):
 def draw():
     for i in Projectiles:
         i["sprite"].draw()
-
-
-# Di na ata to kailangan?
-# pyglet.clock.schedule_interval(update, 1/60)
