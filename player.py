@@ -19,7 +19,7 @@ def add(mouse_position):
     global counter
     counter = 0
 
-    def update(dt):
+    def update_player(dt):
         global counter
         spr = a["sprite"]
 
@@ -35,7 +35,7 @@ def add(mouse_position):
         else:
             a["sprite"].color = (255, 255, 255)
             
-    a["update"] = update
+    a["update"] = update_player
 
     return a
 

@@ -22,7 +22,7 @@ def new_particle(theta, position, image, particle_type):
         a["speed"]= 500
         a["scale"]= 2
 
-    def update(dt,player):
+    def update_particle(dt,player):
         spr = a["sprite"]
         spr.rotation += a["omega"]
         dx = a["speed"]*math.cos(spr.rotation)
@@ -33,7 +33,7 @@ def new_particle(theta, position, image, particle_type):
         a["time"] += 1
         spr.scale = 1 - a["time"]/30
     
-    a["update"] = update
+    a["update"] = update_particle
 
     Particles.append(a)
     return a
@@ -47,7 +47,6 @@ def new_particle_system(position):
 def new_particle_system_dog(position):
     for i in range(0, 360, 40):
         new_particle(i, position, imgDOG, 1)
-
 
 
 def update(dt, player):
