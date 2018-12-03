@@ -26,6 +26,7 @@ def add(enemy_type):
         a["sprite"].position = (720, 240)
         a["target"] = (500, 220)
         a["boss"] = True
+        a["lives"] = 25
     else:
         a["sprite"].position = (720, a["initial_y"])
     a["sprite"].anchor = (12, 14)

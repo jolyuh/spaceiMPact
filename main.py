@@ -105,9 +105,14 @@ def check_collision():
             if d < 30**2:
                 if not chocolate["boss"]:
                     Enemy.Enemies.remove(chocolate)  # delete enemy
+                    score += 2
                 else:
                     chocolate["sprite"].color = (255, 0, 0)
-                score += 2
+                    chocolate["lives"] -= 1
+                if chocolate["boss"]:
+                    if chocolate["lives"] == 0:
+                        Enemy.Enemies.remove(chocolate)
+                        score += 50
                 Particle.new_particle_system(heart_position)
                 Projectile.Projectiles.remove(heart)  # delete projectile
                 break
