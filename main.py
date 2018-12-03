@@ -65,8 +65,6 @@ def check_collision():
     global lives, score, hit_sfx
     player_position = player["sprite"].position
 
-    
-    
     # checks for collision between enemy sprite and player sprite
     for a in Enemy.Enemies:
         enemy_position = a["sprite"].position
@@ -112,7 +110,7 @@ def check_collision():
                 if chocolate["boss"]:
                     if chocolate["lives"] == 0:
                         Enemy.Enemies.remove(chocolate)
-                        score += 50
+                        score += 100
                 Particle.new_particle_system(heart_position)
                 Projectile.Projectiles.remove(heart)  # delete projectile
                 break
