@@ -25,6 +25,7 @@ img_background.add_to_texture_bin(bg_bin)
 img_background_sprite = pyglet.sprite.Sprite(img_background)
 
 gun_sfx = pyglet.resource.media('assets/temporary/gun_44mag_11.wav', streaming=False)
+gun_sfx.play()
 hit_sfx = pyglet.resource.media('assets/temporary/explosion_x.wav', streaming=False)
 
 # Set sprites
