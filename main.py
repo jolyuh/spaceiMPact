@@ -13,19 +13,19 @@ import particles as Particle
 
 window = pyglet.window.Window(width=720, height=500)
 
-# load assets
-img_player = pyglet.image.load_animation('assets/temporary/doge.gif')
+# load images
+img_player = pyglet.image.load_animation('assets/doge.gif')
 doge_bin = pyglet.image.atlas.TextureBin()
 # credits to u/red_white_blue on reddit
 # https://www.reddit.com/r/dogecoin/comments/1ycffo/im_working_on_an_animated_web_banner_for_doge/
 img_player.add_to_texture_bin(doge_bin)
-img_bullet = pyglet.image.load('assets/temporary/heart.png')
+img_bullet = pyglet.image.load('assets/heart.png')
 # credits to xquatrox on deviantart
 # https://www.deviantart.com/xquatrox/art/8-Bit-heart-stock-287592934
-img_enemy_1 = pyglet.image.load('assets/temporary/chocolate_28px.png')
+img_enemy_1 = pyglet.image.load('assets/chocolate_28px.png')
 # credits to shutterstock
 # https://www.shutterstock.com/image-vector/chocolate-bar-icon-pixel-art-flat-767821939
-img_enemy_3 = pyglet.image.load('assets/temporary/evil_nyan_cat.png')
+img_enemy_3 = pyglet.image.load('assets/evil_nyan_cat.png')
 # credits to frostyplayz on deviantart
 # https://www.deviantart.com/frostyplayz/art/EVIL-NYAN-CAT-568344463
 img_background = pyglet.image.load_animation('assets/temporary/plain_space_bg.gif')
@@ -33,9 +33,10 @@ bg_bin = pyglet.image.atlas.TextureBin()
 img_background.add_to_texture_bin(bg_bin)
 img_background_sprite = pyglet.sprite.Sprite(img_background)
 
-gun_sfx = pyglet.resource.media('assets/temporary/gun_44mag_11.wav', streaming=False)
+# load sfx
+gun_sfx = pyglet.resource.media('assets/gun_44mag_11.wav', streaming=False)
 gun_sfx.play()
-hit_sfx = pyglet.resource.media('assets/temporary/explosion_x.wav', streaming=False)
+hit_sfx = pyglet.resource.media('assets/explosion_x.wav', streaming=False)
 # credits to wavsource
 # http://www.wavsource.com/sfx/sfx2.htm
 
