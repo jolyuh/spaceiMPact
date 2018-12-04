@@ -3,8 +3,8 @@ import random
 import math
 
 Particles = []
-imgDMG = pyglet.image.load('assets/temporary/heart.png')
-imgDOG = pyglet.image.load('assets/temporary/chocolate_28px.png')
+imgDMG = pyglet.image.load('assets/heart.png')
+imgDOG = pyglet.image.load('assets/chocolate_28px.png')
 
 
 def new_particle(theta, position, image, particle_type):

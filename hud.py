@@ -2,7 +2,7 @@ import pyglet
 import math
 from pyglet import font
 
-font.add_file('assets/temporary/8-BIT-WONDER.ttf')
+font.add_file('assets/8-BIT-WONDER.ttf')
 new_font = font.load('8BIT WONDER', 16)
 
 # PHASE 0
@@ -13,8 +13,8 @@ label_title_2 = pyglet.text.Label("EARTH'S DEFENDER", font_name='8BIT WONDER', f
                                   anchor_x='center', x=360, y=235)
 label_name = pyglet.text.Label("Dizon · Romero · Virtucio ", font_name='8BIT WONDER', font_size=10,
                                anchor_x='center', x=360, y=197)
-dog1_image = pyglet.image.load('assets/temporary/DOGE1_MEDIUM.png')
-dog2_image = pyglet.image.load('assets/temporary/DOGE2_MEDIUM.png')
+dog1_image = pyglet.image.load('assets/DOGE1_MEDIUM.png')
+dog2_image = pyglet.image.load('assets/DOGE2_MEDIUM.png')
 doge_sprite = pyglet.sprite.Sprite(dog1_image)
 time = [0]
 

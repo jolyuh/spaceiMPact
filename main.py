@@ -28,7 +28,7 @@ img_enemy_1 = pyglet.image.load('assets/chocolate_28px.png')
 img_enemy_3 = pyglet.image.load('assets/evil_nyan_cat.png')
 # credits to frostyplayz on deviantart
 # https://www.deviantart.com/frostyplayz/art/EVIL-NYAN-CAT-568344463
-img_background = pyglet.image.load_animation('assets/temporary/plain_space_bg.gif')
+img_background = pyglet.image.load_animation('assets/plain_space_bg.gif')
 bg_bin = pyglet.image.atlas.TextureBin()
 img_background.add_to_texture_bin(bg_bin)
 img_background_sprite = pyglet.sprite.Sprite(img_background)
