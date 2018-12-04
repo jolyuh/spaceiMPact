@@ -10,28 +10,28 @@ def set_img(new_img):
 
 # create projectile
 def new_projectile(player):
-    a = {
+    pr = {
         "sprite": pyglet.sprite.Sprite(img),
         "speed": 400
     }
 
     # gives bullet to player
-    a["sprite"].position = player["sprite"].position[0]+40, player["sprite"].position[1]+10
+    pr["sprite"].position = player["sprite"].position[0]+40, player["sprite"].position[1]+10
 
     def update_projectile(dt):
-        spr = a["sprite"]
-        spr.position = (spr.position[0] + a["speed"]*dt, spr.position[1])
+        spr = pr["sprite"]
+        spr.position = (spr.position[0] + pr["speed"]*dt, spr.position[1])
 
-    a["update"] = update_projectile
-    Projectiles.append(a)
-    return a
+    pr["update"] = update_projectile
+    Projectiles.append(pr)
+    return pr
 
 
 def update(dt):
-    for i in Projectiles:
-        i["update"](dt)
+    for pr in Projectiles:
+        pr["update"](dt)
 
 
 def draw():
-    for i in Projectiles:
-        i["sprite"].draw()
+    for pr in Projectiles:
+        pr["sprite"].draw()
